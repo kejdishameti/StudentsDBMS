@@ -1,4 +1,6 @@
-﻿namespace StudentsDBMS
+﻿using StudentsDBMS.Data;
+
+namespace StudentsDBMS
 {
     internal class Program
     {
@@ -44,6 +46,17 @@
                             Console.WriteLine("Invalid option, please enter a valid number");
                             break;
                     }    
+                }
+            }
+
+            static void ShowStudentsTable()
+            {
+                using var context = new StudentDbContext();
+                var students = context.Students.ToList();
+                Console.WriteLine("\nStudents Table: ");
+                foreach (var student in students)
+                {
+                    Console.WriteLine($"ID: {student.ID}, Name: {student.Name}, Age: {student.Age}, Grade {student.Grade}")
                 }
             }
         }
