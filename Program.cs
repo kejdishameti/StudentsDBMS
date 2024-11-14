@@ -1,4 +1,5 @@
 ﻿using StudentsDBMS.Data;
+using StudentsDBMS.Models;
 
 namespace StudentsDBMS
 {
@@ -56,9 +57,29 @@ namespace StudentsDBMS
                 Console.WriteLine("\nStudents Table: ");
                 foreach (var student in students)
                 {
-                    Console.WriteLine($"ID: {student.ID}, Name: {student.Name}, Age: {student.Age}, Grade {student.Grade}")
+                    Console.WriteLine($"ID: {student.ID}, Name: {student.Name}, Age: {student.Age}, Grade {student.Grade}");
                 }
             }
+
+            static void AddRecord()
+            {
+                using var context = new StudentDbContext();
+                var student = new Student();
+
+                Console.Write("Enter name: ");
+                student.Name = Console.ReadLine() ??  "Unknown";
+
+                Console.Write("Enter age: ");
+                student.Age = int.TryParse(Console.ReadLine(), out int age) ? age : 0 ;
+
+                Console.Write("Enter grade: ");
+                student.Grade = Console.ReadLine() ?? "Not assigned";
+
+                context.Students.Add(student);
+                context.SaveChanges();
+                Console.WriteLine("Record added successfully.");
+            }
+
         }
     }
 }
