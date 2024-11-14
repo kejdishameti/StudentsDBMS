@@ -80,6 +80,33 @@ namespace StudentsDBMS
                 Console.WriteLine("Record added successfully.");
             }
 
+            static void EditRecord()
+            {
+                using var context = new StudentDbContext();
+                Console.Write("Enter Student ID to edit: ");
+                if(int.TryParse(Console.ReadLine(), out int id) )
+                {
+                    var student = context.Students.Find(id);
+                    if(student != null)
+                    {
+                        Console.Write("Enter new Name:");
+                        student.Name = Console.ReadLine() ?? student.Name;
+
+                        Console.Write("Enter new Age:");
+                        student.Age = int.TryParse(Console.ReadLine(), out int age) ? age : student.Age;
+
+                        Console.Write("Enter new Grade:");
+                        student.Grade = Console.ReadLine() ?? student.Grade;
+
+                        context.SaveChanges();
+                        Console.WriteLine("Record edited successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student not found");
+                    }
+                }
+            }
         }
     }
 }
