@@ -107,6 +107,26 @@ namespace StudentsDBMS
                     }
                 }
             }
+
+            static void DeleteRecord()
+            {
+                using var context = new StudentDbContext();
+                Console.Write("Enter Student ID to delete: ");
+                if (int.TryParse(Console.ReadLine(), out int id))
+                {
+                    var student = context.Students.Find(id);
+                    if(student != null)
+                    {
+                        context.Students.Remove(student);
+                        context.SaveChanges();
+                        Console.WriteLine("Student deleted successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Student not found");
+                    }
+                }
+            }
         }
     }
 }
