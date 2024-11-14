@@ -7,6 +7,12 @@ namespace StudentsDBMS
     {
         static void Main(string[] args)
         {
+            using (var context = new StudentDbContext())
+            {
+                context.Database.EnsureCreated();
+            }
+            DisplayMenu();
+
             static void DisplayMenu()
             {
                 while (true)
